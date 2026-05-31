@@ -35,7 +35,7 @@ const PROJECTS = [
     stack: ["HTML", "CSS", "JavaScript"],
     summary:
       "Denne siden. Bygget fra scratch — ingen rammeverk, ingen snarveier. Bare meg, en editor, og en idé om noe enkelt og ekte.",
-    link: "https://github.com/wineredbbqsauce/justaleks",
+    link: "https://github.com/wineredbbqsauce/justaleks.no",
     demo: null,
     image: IMAGES.code2,
     size: "small",
