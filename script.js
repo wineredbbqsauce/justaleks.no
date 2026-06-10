@@ -211,12 +211,18 @@ PROJECTS.forEach((p, i) => {
   if (p.link || p.demo) {
     card.style.cursor = "pointer";
     card.onclick = () => {
-      window.open(p.link || p.demo, "_blank", "noopener noreferrer");
+      const url = p.link || p.demo;
+      const isExternal = url.startsWith("http");
+      if (isExternal) {
+        window.open(url, "_blank", "noopener noreferrer");
+      } else {
+        window.location.href = url;
+      }
     };
   }
 
   const demoBtn = p.demo
-    ? `<a href="${p.demo}" target="_blank" rel="noopener noreferrer" class="project-link mono" onclick="event.stopPropagation()">
+    ? `<a href="${p.demo}"rel="noopener noreferrer" class="project-link mono" onclick="event.stopPropagation()">
          <svg viewBox="0 0 24 24"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7,7 17,7 17,17"/></svg>
          <span>Se demo</span>
        </a>`

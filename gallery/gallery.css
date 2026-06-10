@@ -19,6 +19,37 @@
     --radius: 4px;
 }
 
+@view-transition {
+    navigation: auto;
+}
+
+::view-transition-old(root) {
+    animation: slide-out-right 0.35s ease-in forwards;
+}
+
+::view-transition-new(root) {
+    animation: slide-in-left 0.35s ease-out forwards;
+}
+
+@keyframes slide-out-right {
+    to {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+}
+
+@keyframes slide-in-left {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
 html {
     scroll-behavior: smooth;
     overflow-x: hidden;
