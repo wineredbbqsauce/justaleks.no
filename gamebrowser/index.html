@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="no">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Spill — justaleks.no</title>
+    <meta name="description" content="En samling spill jeg har laget — Aleks" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="../assets/placeholder-circle.png"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=IBM+Plex+Mono:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <!-- Grain overlay -->
+    <div class="grain" aria-hidden="true"></div>
+
+    <div class="wrap">
+      <!-- Tilbake-knapp -->
+      <a href="/" class="back-link" style="margin-top: 32px">
+        <svg viewBox="0 0 24 24">
+          <line x1="19" y1="12" x2="5" y2="12" />
+          <polyline points="12,19 5,12 12,5" />
+        </svg>
+        Tilbake til portefølje
+      </a>
+
+      <!-- Header -->
+      <header class="games-header">
+        <span class="label">[ Spill ]</span>
+        <h1 class="games-title">Ting jeg<br /><em>har bygget.</em></h1>
+        <p class="games-desc">
+          Et lite arkiv av spill laget på fritiden — noen ferdige, noen
+          halvferdige. Hold over et spill for å hoppe rett inn, eller trykk for
+          å se mer.
+        </p>
+      </header>
+
+      <!-- Filter -->
+      <div class="filter-bar" id="filterBar">
+        <button class="filter-btn active" data-filter="all">Alle</button>
+        <button class="filter-btn" data-filter="arkade">Arkade</button>
+        <button class="filter-btn" data-filter="puzzle">Puzzle</button>
+        <button class="filter-btn" data-filter="eksperiment">
+          Eksperiment
+        </button>
+      </div>
+
+      <!-- Grid / tom tilstand -->
+      <div class="games-grid" id="gamesGrid">
+        <!-- Fylles av JavaScript -->
+      </div>
+      <div class="games-empty" id="gamesEmpty" style="display: none">
+        <p class="games-empty-title">Kommer senere…</p>
+        <p class="games-empty-desc">
+          Ingen spill er lagt ut ennå — kom tilbake litt senere.
+        </p>
+      </div>
+    </div>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox">
+      <div class="lightbox-panel">
+        <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+        <button
+          class="lightbox-nav lightbox-prev"
+          onclick="navigateLightbox(-1)"
+        >
+          ←
+        </button>
+        <button
+          class="lightbox-nav lightbox-next"
+          onclick="navigateLightbox(1)"
+        >
+          →
+        </button>
+
+        <div class="lightbox-media">
+          <img src="" alt="" id="lightboxImg" />
+        </div>
+
+        <div class="lightbox-body">
+          <span class="label" id="lightboxCategory">[ Arkade ]</span>
+          <h2 class="lightbox-title" id="lightboxCaption"></h2>
+          <p class="lightbox-desc" id="lightboxDesc"></p>
+          <a href="#" class="lightbox-play" id="lightboxPlay">Spill nå →</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="games-footer">
+      <div class="wrap">
+        <p>
+          © 2026 Aleks — Alle spill laget av meg, med mindre annet er oppgitt
+        </p>
+      </div>
+    </footer>
+    <script src="script.js"></script>
+  </body>
+</html>

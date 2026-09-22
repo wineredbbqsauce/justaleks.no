@@ -1,0 +1,563 @@
+/* ══════════ RESET & VARIABLER ══════════ */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --bg-primary: #0f0f0f;
+    --bg-secondary: #171716;
+    --bg-surface: #1a1a1c;
+    --text-primary: #e8e6e1;
+    --text-muted: #a3a099;
+    --accent: #8b7355;
+    --accent-dim: #6b705c;
+    --border: rgba(232, 230, 225, 0.07);
+    --radius: 4px;
+}
+
+@view-transition {
+    navigation: auto;
+}
+
+::view-transition-old(root) {
+    animation: slide-out-right 0.35s ease-in forwards;
+}
+
+::view-transition-new(root) {
+    animation: slide-in-left 0.35s ease-out forwards;
+}
+
+@keyframes slide-out-right {
+    to {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+}
+
+@keyframes slide-in-left {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+html {
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+}
+
+body {
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: "IBM Plex Mono", monospace;
+    font-weight: 300;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+    min-height: 100vh;
+}
+
+::selection {
+    background: var(--accent);
+    color: var(--bg-primary);
+}
+
+img {
+    display: block;
+    max-width: 100%;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: inherit;
+    font: inherit;
+}
+
+/* ══════════ TYPOGRAFI ══════════ */
+.serif {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 300;
+    letter-spacing: -0.02em;
+}
+
+.mono {
+    font-family: "IBM Plex Mono", monospace;
+}
+
+.label {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--accent);
+}
+
+/* ══════════ GRAIN ══════════ */
+.grain {
+    position: fixed;
+    inset: 0;
+    z-index: 9998;
+    pointer-events: none;
+    opacity: 0.07;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.9 0 0 0 0 0.9 0 0 0 0 0.85 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ══════════ LAYOUT ══════════ */
+.wrap {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+@media (min-width: 768px) {
+    .wrap {
+        padding: 0 48px;
+    }
+}
+
+/* ══════════ BACK BUTTON ══════════ */
+.back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 0;
+    font-size: 0.68rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    transition: color 0.3s;
+    margin-bottom: 24px;
+}
+
+.back-link:hover {
+    color: var(--text-primary);
+}
+
+.back-link svg {
+    width: 16px;
+    height: 16px;
+    stroke: currentColor;
+    stroke-width: 1.2;
+    fill: none;
+    transition: transform 0.3s;
+}
+
+.back-link:hover svg {
+    transform: translateX(-3px);
+}
+
+/* ══════════ HEADER ══════════ */
+.games-header {
+    padding: 80px 0 48px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 48px;
+}
+
+@media (min-width: 768px) {
+    .games-header {
+        padding: 120px 0 64px;
+        margin-bottom: 64px;
+    }
+}
+
+.games-title {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 300;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    line-height: 1;
+    letter-spacing: -0.02em;
+    color: var(--text-primary);
+    margin: 16px 0 24px;
+}
+
+.games-title em {
+    font-style: italic;
+    color: var(--accent);
+}
+
+.games-desc {
+    font-size: 0.8rem;
+    line-height: 1.7;
+    color: var(--text-muted);
+    max-width: 500px;
+}
+
+/* ══════════ FILTER TAGS ══════════ */
+.filter-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 48px;
+}
+
+.filter-btn {
+    padding: 8px 16px;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    border: 1px solid rgba(232, 230, 225, 0.1);
+    border-radius: var(--radius);
+    transition: all 0.3s;
+    cursor: pointer;
+}
+
+.filter-btn:hover {
+    border-color: var(--accent);
+    color: var(--text-primary);
+}
+
+.filter-btn.active {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--bg-primary);
+}
+
+/* ══════════ SPILL-GRID (jevnt, Roblox/Y8-stil) ══════════ */
+.games-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 16px;
+    margin-bottom: 64px;
+}
+
+@media (min-width: 768px) {
+    .games-grid {
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        gap: 20px;
+    }
+}
+
+.games-item {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 4 / 3;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--bg-surface);
+    cursor: pointer;
+    transition: border-color 0.3s, transform 0.3s;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.games-item:hover {
+    border-color: rgba(139, 115, 85, 0.5);
+    transform: translateY(-4px);
+}
+
+.games-item.hidden {
+    display: none;
+}
+
+@keyframes fadeUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.games-item img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 700ms cubic-bezier(0.22, 1, 0.36, 1), filter 0.3s;
+}
+
+.games-item:hover img {
+    transform: scale(1.08);
+    filter: brightness(0.55);
+}
+
+/* Overlay ved hover — direkte spill-knapp, à la Roblox/Y8 */
+.item-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    text-align: center;
+    padding: 16px;
+    background: rgba(15, 15, 15, 0.35);
+    opacity: 0;
+    transform: scale(0.94);
+    transition: opacity 0.3s, transform 0.3s;
+}
+
+.games-item:hover .item-overlay {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.item-info {
+    color: var(--text-primary);
+}
+
+.item-title {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 1.2rem;
+    margin-bottom: 4px;
+}
+
+.item-meta {
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+}
+
+.item-play {
+    padding: 8px 20px;
+    font-size: 0.62rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--bg-primary);
+    background: var(--accent);
+    border-radius: var(--radius);
+    transition: background 0.25s, transform 0.15s;
+}
+
+.item-play:hover {
+    background: var(--text-primary);
+}
+
+.item-play:active {
+    transform: scale(0.96);
+}
+
+/* ══════════ TOM TILSTAND (ingen spill lagt ut) ══════════ */
+.games-empty {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    text-align: center;
+    padding: 90px 24px;
+    border: 1px dashed var(--border);
+    border-radius: var(--radius);
+    margin-bottom: 64px;
+}
+
+.games-empty-title {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: 1.6rem;
+    color: var(--text-primary);
+}
+
+.games-empty-desc {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+.lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 10000;
+    background: rgba(0, 0, 0, 0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s;
+}
+
+.lightbox.open {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.lightbox-panel {
+    position: relative;
+    display: flex;
+    width: min(980px, 100%);
+    max-height: 86vh;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    transform: scale(0.96) translateY(8px);
+    transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.lightbox.open .lightbox-panel {
+    transform: scale(1) translateY(0);
+}
+
+.lightbox-media {
+    flex: 0 0 60%;
+    position: relative;
+    background: #000;
+    min-height: 280px;
+}
+
+.lightbox-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity 0.15s ease;
+}
+
+.lightbox-body {
+    flex: 0 0 40%;
+    padding: 44px 36px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 14px;
+    overflow-y: auto;
+}
+
+.lightbox-body .label {
+    text-transform: capitalize;
+}
+
+.lightbox-title {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 300;
+    font-style: italic;
+    font-size: 2rem;
+    line-height: 1.1;
+    color: var(--text-primary);
+}
+
+.lightbox-desc {
+    font-size: 0.8rem;
+    line-height: 1.7;
+    color: var(--text-muted);
+}
+
+.lightbox-play {
+    align-self: flex-start;
+    margin-top: 10px;
+    padding: 12px 26px;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    background: var(--accent);
+    color: var(--bg-primary);
+    border-radius: var(--radius);
+    transition: background 0.3s;
+}
+
+.lightbox-play:hover {
+    background: var(--text-primary);
+}
+
+.lightbox-close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    padding: 10px;
+    transition: color 0.3s;
+    z-index: 2;
+}
+
+.lightbox-close:hover {
+    color: var(--text-primary);
+}
+
+.lightbox-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-muted);
+    font-size: 1.6rem;
+    padding: 14px;
+    transition: color 0.3s;
+    z-index: 2;
+}
+
+.lightbox-nav:hover {
+    color: var(--text-primary);
+}
+
+.lightbox-prev {
+    left: -8px;
+}
+
+.lightbox-next {
+    right: -8px;
+}
+
+@media (max-width: 768px) {
+    .lightbox-panel {
+        flex-direction: column;
+        max-height: 92vh;
+        overflow-y: auto;
+    }
+
+    .lightbox-media {
+        flex-basis: auto;
+        height: 220px;
+    }
+
+    .lightbox-body {
+        flex-basis: auto;
+        padding: 28px 24px;
+    }
+
+    .lightbox-prev {
+        left: 8px;
+    }
+
+    .lightbox-next {
+        right: 8px;
+    }
+}
+
+/* ══════════ FOOTER ══════════ */
+.games-footer {
+    border-top: 1px solid var(--border);
+    padding: 48px 0;
+    text-align: center;
+}
+
+.games-footer p {
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent-dim);
+}
+
+/* ══════════ SCROLLBAR ══════════ */
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-primary);
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(139, 115, 85, 0.4);
+    border-radius: 3px;
+}
